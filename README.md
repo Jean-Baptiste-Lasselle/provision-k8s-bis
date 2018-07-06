@@ -35,9 +35,9 @@ Pour terminer, Kubernetes, tôt ou tard, téléchargera des images Docker, d'un 
 Il vous faut donc:
 * Vous assurer qu'un espace libre de plus de 30 Go (30 Go vous avez de quoi télécharger un certain nombre d'images déjà) est disponible sous `/var`. L'instruction `df -Th /var` vosu permettra de procéder à cette vérification.
 * recourir à la technique qui vous sied, afin d'avoir un espace de 30Go libre sous `/var`
-* Chez Bosstek, nous utilissons LVM. Par exemple, si vous avez créé un volume logique `mon-vol-logiqu1` dans un groupe de volumes `grp-vol-un`, et que `/dev/mon-vol-logiqu1/grp-vol-un` est monté sur `/var`, alors:
+* Imaginos que vous utilisiez LVM, pour la provision des disques durs de vos VMs. Par exemple, si vous avez créé un volume logique `mon-vol-logiqu1` dans un groupe de volumes `grp-vol-un`, et que `/dev/grp-volumes-lvm-un/mon-vol-logiqu1` est monté sur `/var`, alors:
 ```
-sudo lvextend -rn /dev/mapper/vg00-lv_var -L 37G
+sudo lvextend -rn /dev/grp-volumes-lvm-un/mon-vol-logiqu1 -L 37G
 ``` 
 Ce qui étendra à la capacité de `/var` de sa taille initiale, à une taille de 37 giga-octets. 
 
@@ -60,7 +60,10 @@ sudo ./operations.sh
 ```
 Ou en une seule ligne:
 ```
-export http_proxy=http://nom-domaine-de-votre-srv-proxy:no_port && export https_proxy=http://nom-domaine-de-votre-srv-proxy:no_port && export MAISON_OPS=$(pwd)/provision-test-k8s  && rm -rf $MAISON_OPS  && mkdir -p $MAISON_OPS  && cd $MAISON_OPS  && export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" && git clone "ssh://git@github.com:Jean-Baptiste-Lasselle/provision-k8s-bis.git" .  && sudo chmod +x ./operations.sh  && sudo ./operations.sh
+# si vous avez un proxy dans votre infra:
+# export http_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
+# export https_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
+export MAISON_OPS=$(pwd)/provision-test-k8s  && rm -rf $MAISON_OPS  && mkdir -p $MAISON_OPS  && cd $MAISON_OPS  && export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" && git clone "ssh://git@github.com:Jean-Baptiste-Lasselle/provision-k8s-bis.git" .  && sudo chmod +x ./operations.sh  && sudo ./operations.sh
 ```
 
 Lorsque l'installation s'est terminée avec succès, vous devriez avoir à l'écran un affichage de la forme:
@@ -99,8 +102,6 @@ as root:
 
 Cette recette réalise la provision d'un cluster Kubernetes, à l'aide de 6 machines virutelles, comme proposé dans l'une des documentations officielles Kubernetes.
 Mettre en oeuvre, et dans un second temps, exploiter, un cluster Kubernetes, dans le cadre d'un cycle de vie / de développement / d'exploitation, d'un logiciel.
-
-
 
 En son premier état, la recette a été testée avec un hôte Docker CentOS 7, la machine ayant plein accès à internet, derrière un routeur FAI avec masquerade.
 Dans cette machine, ont été testés l'installation des 3 composants principaux Kubernetes:
