@@ -157,7 +157,7 @@ I0618 02:45:08.780292   23143 kernel_validator.go:96] Validating kernel config
 [preflight] Some fatal errors occurred:
         [ERROR Swap]: running with swap on is not supported. Please disable swap
 [preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
-[jibl@pc-65 1]$
+[jbl@pc-65 1]$
 ```
 
 # ANNEXE: créer un personal access token sur Github, pour utiliser l'API...
@@ -186,4 +186,29 @@ En témoigne `kubectl`:
 
 ```
 sudo kubectl get services -n kube-system
+```
+## Point de reprise
+
+Je n'arrive pas encore à atteindrele dashboard Kubernetes.
+
+D'après [cette docuementation du dashboard](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user) : 
+
+* Pour la création des users du dashboard Kubernetes : 
+
+```
+[jbl@pc-65 provision-test-k8s]$ pwd
+/home/jbl/provision-test-k8s/provision-test-k8s
+[jbl@pc-65 provision-test-k8s]$ export MAISON=`pwd`
+[jbl@pc-65 provision-test-k8s]$ sudo kubectl apply -f $MAISON/add-ons/create-service-account.yml
+serviceaccount/admin-user created
+[jbl@pc-65 provision-test-k8s]$ sudo kubectl apply -f $MAISON/add-ons/create-cluster-role-binding.yml
+clusterrolebinding.rbac.authorization.k8s.io/admin-user created
+[jbl@pc-65 provision-test-k8s]$
+
+```
+
+* Puis on est censé retrouver le token d'authentification au Dashboard Kubernetes en exécutant : 
+
+```
+sudo kubectl -n kube-system describe secret $(sudo kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
 ```
