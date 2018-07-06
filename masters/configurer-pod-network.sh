@@ -5,6 +5,6 @@
 
 WHERE_TO_PULL_FLANNEL_YML_CONF_FROM=https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 curl "$WHERE_TO_PULL_FLANNEL_YML_CONF_FROM" -o ./kube-flannel.yml
-kubectl apply -f ./kube-flannel.yml
+sudo kubectl apply -f ./kube-flannel.yml
 
 

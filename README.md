@@ -174,6 +174,7 @@ Quelques commandes que j'ai testées avec succès:
 sudo kubectl --kubeconfig=$HOME/.kube/config get events --watch
 ```
 
+
 Illustration avec ma première réussite de passage au statut "NodeReady"...:
 
 ![Première réussite - Cluster 3 noeuds statut 'NodeReady'](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/cluster-k8s-3-VMs.png)
@@ -181,3 +182,8 @@ Illustration avec ma première réussite de passage au statut "NodeReady"...:
 En témoigne `kubectl`:
 
 ![Première réussite - passage au statut 'NodeReady'](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/premiere-reussite-k8s-avec-flannel-pr-passer-statut-node-ready.png)
+
+
+```
+sudo kubectl get services -n kube-system
+```
