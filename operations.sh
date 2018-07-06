@@ -34,6 +34,11 @@ export POD_NETWORK_CIDR
 export POD_NETWORK_CIDR_PAR_DEFAUT=10.244.0.0/16
 POD_NETWORK_CIDR=$POD_NETWORK_CIDR_PAR_DEFAUT
 
+# - pour PROXY HTTP éventuel
+# export SRV_PROXY_HTTP_DE_LINFRA
+# export SRV_PROXY_HTTP_DE_LINFRA_PAR_DEFAUT=htpp://srv-proxy-de-votre-infra:8080
+# SRV_PROXY_HTTP_DE_LINFRA=$SRV_PROXY_HTTP_DE_LINFRA_PAR_DEFAUT
+
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
 ##############################################################################################################################################
@@ -171,18 +176,20 @@ read CHOIX_UTILISATEUR
 # read
 
 # - DEBUG
-sudo ./desactivation-se-linux.sh
+
 # - Pas le choix: obligé de faire une subtitution dans le script ./installation-k3s-k8s.sh
 rm -f installation-k3s-k8s.sh
 cp installation-k3s-k8s.sh.template installation-k3s-k8s.sh
 sed -i "s/VAL_VERSION_K8S/$VERSION_K8S/g" ./installation-k3s-k8s.sh 
-sudo ./config-packg-mngr-repo-officiel-k8s.sh && sudo ./installation-k3s-k8s.sh && sudo ./test3-config-iptables-pr-kubelet.sh && sudo ./test4-desactivation-swap-pr-k8S-nodes.sh 
-
+# - autorisations d'exécution
 sudo chmod +x ./*.sh
 sudo chmod +x ./masters/*.sh
 sudo chmod +x ./workers/*.sh
-
-
+# - désactivation SELinux
+sudo ./desactivation-se-linux.sh
+# - reste des opérations communes aux "masters" et "workers"
+sudo ./config-packg-mngr-repo-officiel-k8s.sh && sudo ./installation-k3s-k8s.sh && sudo ./test3-config-iptables-pr-kubelet.sh && sudo ./test4-desactivation-swap-pr-k8S-nodes.sh 
+# - début des différences de provision / configuration
 if [ "x$CHOIX_UTILISATEUR" = "x" ]
 then
         $MAISON/workers/rejoindre-cluster.sh
