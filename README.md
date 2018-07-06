@@ -66,7 +66,7 @@ Ou en une seule ligne:
 # si vous avez un proxy dans votre infra:
 # export http_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
 # export https_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
-export MAISON_OPS=$(pwd)/provision-test-k8s  && rm -rf $MAISON_OPS  && mkdir -p $MAISON_OPS  && cd $MAISON_OPS  && export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" && git clone "ssh://git@github.com:Jean-Baptiste-Lasselle/provision-k8s-bis.git" .  && sudo chmod +x ./operations.sh  && sudo ./operations.sh
+export MAISON_OPS=$(pwd)/provision-test-k8s  && rm -rf $MAISON_OPS  && mkdir -p $MAISON_OPS  && cd $MAISON_OPS  && export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" && git clone "git@github.com:Jean-Baptiste-Lasselle/provision-k8s-bis.git" .  && sudo chmod +x ./operations.sh  && sudo ./operations.sh
 ```
 
 Lorsque l'installation s'est terminée avec succès, vous devriez avoir à l'écran un affichage de la forme:
