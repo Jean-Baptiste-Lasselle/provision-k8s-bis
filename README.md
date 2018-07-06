@@ -13,21 +13,21 @@ Cela fait, vous devez ajoutez la clé publique `$HOME/.ssh/id_rsa.pub`, à l'ens
 
 Ensuite, il faut configurer notre meilleur ami Git : 
 
-* ` git config --global user.email "jb.lasselle@bosstek.net"` 
+* ` git config --global user.email "jean.baptiste.lasselle.it@gmail.com"` 
 * ` git config --global user.name "jb.lasselle"` 
 
-Avant d'entrer en cuisine, configurez le package manager de votre VM pour les proxy HTTP et HTTPS de l'infrastructure Bosstek:
+Avant d'entrer en cuisine, configurez le package manager de votre VM pour les proxy HTTP et HTTPS de l'infrastructure (chez vous, dans un entreprise):
 
 ### CentOS 7
 ``` 
 # - pour configurer le proxy pour le package manager CentOS 7:
-echo "proxy=http://proxy:8080">> /etc/yum.conf
+echo "proxy=http://nom-domaine-de-votre-srv-proxy:no_port">> /etc/yum.conf
 ```
 ### Ubuntu / Debian
 ``` 
 # - Pour configurer le proxy pour le package manager CentOS 7:
-echo "Acquire::http::proxy \"http://proxy:8080/\";" >> /etc/apt/apt.conf
-echo "Acquire::https::proxy \"http://proxy:8080/\";" >> /etc/apt/apt.conf
+echo "Acquire::http::proxy \"http://nom-domaine-de-votre-srv-proxy:no_port/\";" >> /etc/apt/apt.conf
+echo "Acquire::https::proxy \"http://nom-domaine-de-votre-srv-proxy:no_port/\";" >> /etc/apt/apt.conf
 
 ```
 
@@ -45,8 +45,8 @@ Vous êtes maintenant prêt à entrer en cuisine, et exécuter la présente rece
 
 ```
 # Enfin, pour exécuter cette recette, exécutez les commandes:
-export http_proxy=http://proxy:8080
-export https_proxy=http://proxy:8080
+export http_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
+export https_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
 
 # - 
 # - 
@@ -54,13 +54,13 @@ export MAISON_OPS=$(pwd)/provision-test-k8s
 rm -rf $MAISON_OPS 
 mkdir -p $MAISON_OPS 
 cd $MAISON_OPS 
-export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" && git clone "git@wgit.bosstek.net:jb.lasselle/provision-k8s" . 
+export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" && git clone "git@github.com:Jean-Baptiste-Lasselle/provision-k8s-bis.git" . 
 sudo chmod +X ./operations.sh 
 sudo ./operations.sh
 ```
 Ou en une seule ligne:
 ```
-export http_proxy=http://proxy:8080 && export https_proxy=http://proxy:8080 && export MAISON_OPS=$(pwd)/provision-test-k8s  && rm -rf $MAISON_OPS  && mkdir -p $MAISON_OPS  && cd $MAISON_OPS  && export GIT_SSH_COMMAND="ssh -p2222 -i ~/.ssh/id_rsa" && git clone "ssh://git@gitlab.bosstek.net:2222/jb.lasselle/provision-k8s.git" .  && sudo chmod +x ./operations.sh  && sudo ./operations.sh
+export http_proxy=http://nom-domaine-de-votre-srv-proxy:no_port && export https_proxy=http://nom-domaine-de-votre-srv-proxy:no_port && export MAISON_OPS=$(pwd)/provision-test-k8s  && rm -rf $MAISON_OPS  && mkdir -p $MAISON_OPS  && cd $MAISON_OPS  && export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" && git clone "ssh://git@github.com:Jean-Baptiste-Lasselle/provision-k8s-bis.git" .  && sudo chmod +x ./operations.sh  && sudo ./operations.sh
 ```
 
 Lorsque l'installation s'est terminée avec succès, vous devriez avoir à l'écran un affichage de la forme:
@@ -156,11 +156,10 @@ I0618 02:45:08.780292   23143 kernel_validator.go:96] Validating kernel config
 [jibl@pc-65 1]$
 ```
 
-# ANNEXE: créer un personal access token sur Github, pour importer dans Gitlab Bosstek
+# ANNEXE: créer un personal access token sur Github, pour utiliser l'API...
 
 cf. https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
 
-Ce repo a été ainsi importé, à partir d'un repo public github.
 
 # TROUBLESHOOTING
 
