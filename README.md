@@ -12,9 +12,12 @@ Cela fait, vous devez ajoutez la clé publique `$HOME/.ssh/id_rsa.pub`, à l'ens
 * Copiez collez-le dans le formulaire gitlab/github approprié, [cf. la doc des plateformes respectives](https://help.github.com/articles/)
 
 Ensuite, il faut configurer notre meilleur ami Git : 
-
-* ` git config --global user.email "jean.baptiste.lasselle.it@gmail.com"` 
-* ` git config --global user.name "jb.lasselle"` 
+```
+git config --global user.email "jean.baptiste.lasselle.it@gmail.com"
+git config --global user.name "Jean-Baptiste-Lasselle"
+# Enfin, depuis Git 2.0 :
+git config --global push.default matching
+```
 
 Avant d'entrer en cuisine, configurez le package manager de votre VM pour les proxy HTTP et HTTPS de l'infrastructure (chez vous, dans un entreprise):
 
