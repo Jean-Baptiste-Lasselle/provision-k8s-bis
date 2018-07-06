@@ -176,4 +176,5 @@ sudo kubectl --kubeconfig=$HOME/.kube/config get events --watch
 
 Illustration avec ma première réussite de passage au statut "NodeReady"...:
 
-![Première réussite - passage au statut 'NodeReady'](#https://raw.githubusercontent.com/Jean-Baptiste-Lasselle/provision-k8s-bis/master/images/premiere-reussite-k8s-avec-flannel-pr-passer-statut-node-ready.png)
+<!-- ![Première réussite - passage au statut 'NodeReady'](#https://raw.githubusercontent.com/Jean-Baptiste-Lasselle/provision-k8s-bis/master/images/premiere-reussite-k8s-avec-flannel-pr-passer-statut-node-ready.png) -->
+![Première réussite - passage au statut 'NodeReady'](#https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/premiere-reussite-k8s-avec-flannel-pr-passer-statut-node-ready.png)
