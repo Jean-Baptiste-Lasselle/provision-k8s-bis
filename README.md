@@ -207,8 +207,46 @@ clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 
 ```
 
-* Puis on est censé retrouver le token d'authentification au Dashboard Kubernetes en exécutant : 
+* Puis on peut retrouver le token d'authentification au Dashboard Kubernetes en exécutant : 
 
 ```
 sudo kubectl -n kube-system describe secret $(sudo kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
 ```
+
+Bien, ensuite, il faut bien comprendre le principe de ce dashboard: c'est un dashboard d'administration, si bien qu'il n'est censé être servi, que localement.
+En clair, si vous voulez accéder au dashboard kubernetes, depuis une machien quelconque, différente d'une machien serveur maître, il va falloir que vous 
+trouviez un moyen de "faire croire que le dashboard est local", à votre pile tcp / ip OS. 
+La solution est d'utiliser un prixy, qui est fournit par `kubectl`.
+
+Disons que le maître du cluster soit un serveur, et que vous souhaitiez accéeder au dashboard kubernetes depusi votre machine.
+Alors, il val falloir:
+* Installer [chocolatey](https://chocolatey.org/install) sur votre machine windows. Pour cela, vous ouvrirez une consile MS-DOS (faîtes la traduction en Powershell, qui est [donnée dans la doc kubernetes](https://kubernetes.io/docs/tasks/tools/install-kubectl/) )
+* Installer `kubectl` sur votre machine Windows avec chocolatey (merci choco!), en exécutant:
+```
+choco install kubernetes-cli
+```
+* Configurer `kubectl`, en :
+  * Sur le maître, copiez le contenu du fichier `/root/.kube/config` (ou `$HOME/.kube/config`),
+  * Sur votre poste Windows, créez un fichier "C:\repertoire\quel\conque\config", et collez le contenu copié précédemment, dans ce fichier (attention au format de fichiers windows/unix, le formt doit être unix)
+* exécutez :
+```
+kubectl proxy --port=1536
+```
+Et enfin, accéder à l'url suivante:
+```
+http://127.0.0.1:1536/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/overview?namespace=default
+```
+On arrive sur la page suivante, dans lequelle le dashboard nous demande de nosu authentifier, en nosu rpoposant deux méthodes. 
+On utilisera la méhode du token, et nous renseignerons la valeur que nous avons généré avec `sudo kubectl apply -f $MAISON/add-ons/create-service-account.yml`
+
+![Dashboard Enfin](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/reussite-k8s-dashboard-classique-1-web-ui-et-URL.png)
+
+Ce qui nous donnera, après authentification:
+
+![Dashboard je suis auth.](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/reussite-k8s-dashboard-classique-3-LOGIN-REUSSIT-AVEC-TOKEN.png)
+
+Ci dessous, l'écran MS-DOS dans lequel j'ai exécuté le proxy kubectl sur ma machien windows est visible:
+
+![Kubectl Proxy / Dashboard](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/reussite-k8s-dashboard-classique-2-CHOCOLATEY-KUBECTL-PROXY-MSDOS.png)
+
+### TODO: faire l'évolution dans le scripts, pour automatiser cela.
