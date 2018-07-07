@@ -249,4 +249,8 @@ Ci dessous, l'écran MS-DOS dans lequel j'ai exécuté le proxy kubectl sur ma m
 
 ![Kubectl Proxy / Dashboard](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/reussite-k8s-dashboard-classique-2-CHOCOLATEY-KUBECTL-PROXY-MSDOS.png)
 
+Et voilà la liste des 3 nodes créés:
+
+![Kubectl Proxy / Dashboard](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/reussite-k8s-dashboard-classique-4-LISTE-DES-NODES-OUII.png)
+
 ### TODO: faire l'évolution dans le scripts, pour automatiser cela.
