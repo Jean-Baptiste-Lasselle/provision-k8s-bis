@@ -208,7 +208,8 @@ else
         echo " ------------ ++ --  "
         echo " ------------ ++ --  "
         echo " ------------ ++ --  De plus, voici l'instruction à exécuter pour rejoindre ce maître dans son cluster:"
-		cat $FICHIER_STDOUT_KUBEADM_INIT_MASTER
+		cat $FICHIER_STDOUT_KUBEADM_INIT_MASTER |grep kubeadm |grep join
+		# et il sera possible de faire d'autre manipûlations de chaînes de caractère pour ajouter le nodename au join
         echo " ------------ ++ --  "
         echo " ------------ ++ --  "
         echo " ------------ ++ --  "
