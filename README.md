@@ -254,3 +254,9 @@ Et voilà la liste des 3 nodes créés:
 ![Kubectl Proxy / Dashboard](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/reussite-k8s-dashboard-classique-4-LISTE-DES-NODES-OUII.png)
 
 ### TODO: faire l'évolution dans le scripts, pour automatiser cela.
+
+### Sur les pod network
+
+ impression écran montrant que j'ai: [1. créé le maitre et initialise le pod network avant de crééer l'esclave. Puis j'ai créé un premier esclave, et les 2 passent dans l'étant "Ready"]:
+ 
+![Kubectl Proxy / Dashboard](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/esclave-ajoute-apres-deploiement-pod-network-devient-ready.png)
