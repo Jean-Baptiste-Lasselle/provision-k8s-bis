@@ -136,7 +136,7 @@ demander_CIDR_NetID_PrPodNetwork () {
         if [ "x$CIDR_NET_ID_CHOISIT" = "x" ]; then
           CIDR_NET_ID_CHOISIT=$POD_NETWORK_CIDR_PAR_DEFAUT
         fi
-        POD_NETWORK_CIDR=CIDR_NET_ID_CHOISIT
+        POD_NETWORK_CIDR=$CIDR_NET_ID_CHOISIT
 }
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
