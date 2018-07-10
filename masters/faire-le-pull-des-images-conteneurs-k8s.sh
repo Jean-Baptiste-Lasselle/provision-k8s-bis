@@ -11,25 +11,35 @@
 # export NO_PORT_IP_K8S_API_SERVER_PAR_DEFAUT=6443
 # export VERSION_K8S_PAR_DEFAUT=v1.11.0
 
+# - cf. [https://github.com/kubernetes/kubeadm/issues/584]
+# "I figured this one out. It seems that in addition to the --node-name option for kubeadm you also
+# need to set --hostname-override for kubelet. I had assumed kubeadm would handle that."
+# -
+# - Les maîtres utilisent l'option [--node-name] de [kubeadm init] pour faire leur set-node-name
+# - Les maîtres esclaves utilisent l'option [--hostname-override=$K8S_NODE_NAME] de [kubelet] pour faire leur set-node-name 
+# export K8S_NODE_NAME
+
+# - pour POD NETWORK: FLANNEL 
+# export POD_NETWORK_CIDR=10.244.0.0/16
 # --------------------------------------------------------------------------------------------------------------------------------------------
 ##############################################################################################################################################
 ################                                                ENVIRONNEMENT                                            #####################
 ##############################################################################################################################################
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
+
+sudo kubeadm config images pull 
+
 clear
 
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
-echo " ------------ PROVISION TERMINEE : ---------------- "
-echo " ------------ ++ kubeadm ---------------- "
-echo " ------------ ++ kubectl ---------------- "
-echo " ------------ ++ kubelet ---------------- "
+echo " ------------ LISTE DES IMAGES K8S TELECCHARGEES : -- "
+sudo kubeadm config images list 
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
 
-KUBEADM_OPTS="--apiserver-advertise-address=$ADRESSE_IP_K8S_API_SERVER --apiserver-bind-port=$NO_PORT_IP_K8S_API_SERVER"
-kubeadm init $KUBEADM_OPTS --kubernetes-version=$VERSION_K8S
+
 

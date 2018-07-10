@@ -7,9 +7,10 @@ export UTILISATEUR_DE_DEPART=$USER
 # - CONFIGURATION KUBECTL pour "root"
 sudo -s
 # - on fait cela en tant que "root"
+rm -rf $HOME/.kube
 mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+chown $(id -u):$(id -g) $HOME/.kube/config
 
 # - CONFIGURATION KUBECTL pour "$UTILISATEUR_DE_DEPART"
 # - on redonne la main à l' $UTILISATEUR_DE_DEPART

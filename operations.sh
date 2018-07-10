@@ -39,6 +39,7 @@ export POD_NETWORK_CIDR=$POD_NETWORK_CIDR_PAR_DEFAUT
 # export SRV_PROXY_HTTP_DE_LINFRA_PAR_DEFAUT=htpp://srv-proxy-de-votre-infra:8080
 # SRV_PROXY_HTTP_DE_LINFRA=$SRV_PROXY_HTTP_DE_LINFRA_PAR_DEFAUT
 
+export FICHIER_STDOUT_KUBEADM_INIT_MASTER=$MAISON/stdout-stderr-kubeadm-init.master
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
 ##############################################################################################################################################
@@ -197,11 +198,20 @@ then
 #        echo " ------------ ++ -- l'API Kubernetes sera liée à l'adresse IP: $ADRESSE_IP_K8S_API_SERVER  "
 #        echo " ------------ ++ -- l'API Kubernetes sera liée au numéro de port IP: $NO_PORT_IP_K8S_API_SERVER "
 else
+        $MAISON/masters/faire-le-pull-des-images-conteneurs-k8s.sh
         $MAISON/masters/creer-cluster-k8s-init-master.sh
         $MAISON/masters/installer-configuration-kubectl.sh
+        $MAISON/masters/configurer-pod-network.sh
         echo " ------------ ++ Cette machine va être transformée en maître du cluster K8S, et: "
         echo " ------------ ++ -- l'API Kubernetes sera liée à l'adresse IP: $ADRESSE_IP_K8S_API_SERVER  "
         echo " ------------ ++ -- l'API Kubernetes sera liée au numéro de port IP: $NO_PORT_IP_K8S_API_SERVER "
+        echo " ------------ ++ --  "
+        echo " ------------ ++ --  "
+        echo " ------------ ++ --  De plus, voici l'instruction à exécuter pour rejoindre ce maître dans son cluster:"
+		cat $FICHIER_STDOUT_KUBEADM_INIT_MASTER
+        echo " ------------ ++ --  "
+        echo " ------------ ++ --  "
+        echo " ------------ ++ --  "
 fi
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "

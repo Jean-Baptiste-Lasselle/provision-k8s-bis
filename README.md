@@ -24,13 +24,13 @@ Avant d'entrer en cuisine, configurez le package manager de votre VM pour les pr
 ### CentOS 7
 ``` 
 # - pour configurer le proxy pour le package manager CentOS 7:
-echo "proxy=http://nom-domaine-de-votre-srv-proxy:no_port">> /etc/yum.conf
+echo "proxy=http://nom-domaine-ou-ip-de-votre-srv-proxy:no_port">> /etc/yum.conf
 ```
 ### Ubuntu / Debian
 ``` 
 # - Pour configurer le proxy pour le package manager CentOS 7:
-echo "Acquire::http::proxy \"http://nom-domaine-de-votre-srv-proxy:no_port/\";" >> /etc/apt/apt.conf
-echo "Acquire::https::proxy \"http://nom-domaine-de-votre-srv-proxy:no_port/\";" >> /etc/apt/apt.conf
+echo "Acquire::http::proxy \"http://nom-domaine-ou-ip-de-votre-srv-proxy:no_port/\";" >> /etc/apt/apt.conf
+echo "Acquire::https::proxy \"http://nom-domaine-ou-ip-de-votre-srv-proxy:no_port/\";" >> /etc/apt/apt.conf
 
 ```
 
@@ -48,8 +48,8 @@ Vous êtes maintenant prêt à entrer en cuisine, et exécuter la présente rece
 
 ```
 # Enfin, pour exécuter cette recette, exécutez les commandes:
-export http_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
-export https_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
+export http_proxy=http://nom-domaine-ou-ip-de-votre-srv-proxy:no_port
+export https_proxy=http://nom-domaine-ou-ip-de-votre-srv-proxy:no_port
 
 # - 
 # - 
@@ -64,8 +64,8 @@ sudo ./operations.sh
 Ou en une seule ligne:
 ```
 # si vous avez un proxy dans votre infra:
-# export http_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
-# export https_proxy=http://nom-domaine-de-votre-srv-proxy:no_port
+# export http_proxy=http://nom-domaine-ou-ip-de-votre-srv-proxy:no_port
+# export https_proxy=http://nom-domaine-ou-ip-de-votre-srv-proxy:no_port
 export MAISON_OPS=$(pwd)/provision-test-k8s  && rm -rf $MAISON_OPS  && mkdir -p $MAISON_OPS  && cd $MAISON_OPS  && export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" && git clone "git@github.com:Jean-Baptiste-Lasselle/provision-k8s-bis.git" .  && sudo chmod +x ./operations.sh  && sudo ./operations.sh
 ```
 
