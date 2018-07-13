@@ -59,5 +59,5 @@ KUBEADM_OPTS="$KUBEADM_OPTS --pod-network-cidr=$POD_NETWORK_CIDR"
 
 echo "kubeadm init $KUBEADM_OPTS" >> commande-kubeadm-init.jbl
  
-kubeadm init $KUBEADM_OPTS 2>&1 | tee -a $FICHIER_STDOUT_KUBEADM_INIT_MASTER
+sudo kubeadm init $KUBEADM_OPTS 2>&1 | tee -a $FICHIER_STDOUT_KUBEADM_INIT_MASTER
 

@@ -37,7 +37,8 @@ echo "# server180627   NotReady   <none>    51m       v1.11.0"  >> ./test-kubect
 echo "# "  >> ./test-kubectl-get-nodes.resultat
 echo "# --------------------------------------------------------------------------------------------------- "  >> ./test-kubectl-get-nodes.resultat
 echo "# --------------------------------------------------------------------------------------------------- "  >> ./test-kubectl-get-nodes.resultat
-sudo kubectl get nodes >> ./test-kubectl-get-nodes.resultat 2>&1
+# La configuration doit être telle, que kubectl doit pouvoir être utilisé sans escalade de privilèges.
+kubectl get nodes >> ./test-kubectl-get-nodes.resultat 2>&1
 echo "# --------------------------------------------------------------------------------------------------- "  >> ./test-kubectl-get-nodes.resultat
 echo "# 			FIN TEST CONFIG - KUBECTL"  >> ./test-kubectl-get-nodes.resultat
 echo "# si le test est concluant, vous devriez voir apparaître ci-dessous, une sortie standard de la forme:"  >> ./test-kubectl-get-nodes.resultat
