@@ -171,7 +171,7 @@ cf. https://help.github.com/articles/creating-a-personal-access-token-for-the-co
 Quelques commandes que j'ai testées avec succès:
 
 ```
-sudo kubectl --kubeconfig=$HOME/.kube/config get events --watch
+kubectl --kubeconfig=$HOME/.kube/config get events --watch
 ```
 
 
@@ -185,7 +185,7 @@ En témoigne `kubectl`:
 
 
 ```
-sudo kubectl get services -n kube-system
+kubectl get services -n kube-system
 ```
 ## Point de reprise
 
@@ -210,7 +210,7 @@ clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 * Puis on peut retrouver le token d'authentification au Dashboard Kubernetes en exécutant : 
 
 ```
-sudo kubectl -n kube-system describe secret $(sudo kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
 ```
 
 Bien, ensuite, il faut bien comprendre le principe de ce dashboard: c'est un dashboard d'administration, si bien qu'il n'est censé être servi, que localement.
