@@ -203,6 +203,7 @@ else
         $MAISON/masters/installer-configuration-kubectl.sh
         $MAISON/masters/configurer-pod-network.sh
         $MAISON/add-ons/ajouter-dashboard-classique.sh
+        $MAISON/traefik.io/operations.sh
         echo " ------------ ++ Cette machine va être transformée en maître du cluster K8S, et: "
         echo " ------------ ++ -- l'API Kubernetes sera liée à l'adresse IP: $ADRESSE_IP_K8S_API_SERVER  "
         echo " ------------ ++ -- l'API Kubernetes sera liée au numéro de port IP: $NO_PORT_IP_K8S_API_SERVER "

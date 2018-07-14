@@ -6,8 +6,13 @@
 ################                                                ENVIRONNEMENT                                            #####################
 ##############################################################################################################################################
 # --------------------------------------------------------------------------------------------------------------------------------------------
-
-export MAISON=`pwd`
+# héritées de ../operations.sh:
+# export MAISON=`pwd`
+# 
+# 
+# 
+# 
+# -- 
 export ADRESSE_IP_K8S_API_SERVER_PAR_DEFAUT=0.0.0.0
 export ADRESSE_IP_K8S_API_SERVER=$ADRESSE_IP_K8S_API_SERVER_PAR_DEFAUT
 export NO_PORT_IP_K8S_API_SERVER_PAR_DEFAUT=6443
@@ -55,10 +60,19 @@ export POD_NETWORK_CIDR=$POD_NETWORK_CIDR_PAR_DEFAUT
 ##############################################################################################################################################
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
-cd $MAISON
+# cd $MAISON
 
 # - Provision Traefik.io - #
-kubectl apply -f $MAISON/treafik.io/treafik-rbac.yml
-kubectl apply -f $MAISON/treafik.io/treafik-deployment.yml
+kubectl apply -f $MAISON/traefik.io/traefik-rbac.yaml
+kubectl apply -f $MAISON/traefik.io/traefik-deployment.yaml
+echo " ---------------------------------------------------- "
+echo " ---------------------------------------------------- "
+kubectl --namespace=kube-system get pods
+echo " ---------------------------------------------------- "
+kubectl get services --namespace=kube-system
+echo " ---------------------------------------------------- "
+echo " ---------------------------------------------------- "
+echo " ---------------------------------------------------- "
+echo " ----------- PROVISION TRAEFIK FINIE ---------------- "
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "

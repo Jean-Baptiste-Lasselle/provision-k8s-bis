@@ -10,7 +10,7 @@ Avec la CLI, depuis votre poste opérateur, exécuter le commande:
 export URI_FICHIER_CONF=https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-rbac.yaml
 export FICHIER_CONF_LOCAL=./traefik-rbac.yaml
 if [ -f $FICHIER_CONF_LOCAL ]; then rm $FICHIER_CONF_LOCAL; else echo "Téléchargement du fichier [$FICHIER_CONF_LOCAL] ..."; fi
-wget -O $FICHIER_CONF_LOCAL $URI_FICHIER_CONF
+curl -o $FICHIER_CONF_LOCAL $URI_FICHIER_CONF
 ./kubectl apply -f ./traefik-rbac.yaml
 ```
 
@@ -22,7 +22,7 @@ Soit avec la CLI:
 export URI_FICHIER_CONF=https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-deployment.yaml
 export FICHIER_CONF_LOCAL=./traefik-deployment.yaml
 if [ -f $FICHIER_CONF_LOCAL ]; then rm $FICHIER_CONF_LOCAL; else echo "Téléchargement du fichier [$FICHIER_CONF_LOCAL] ..."; fi
-wget -O $FICHIER_CONF_LOCAL $URI_FICHIER_CONF
+curl -o $FICHIER_CONF_LOCAL $URI_FICHIER_CONF
 ./kubectl apply -f $FICHIER_CONF_LOCAL
 ```
 

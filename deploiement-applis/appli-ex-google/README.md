@@ -76,10 +76,7 @@ export NOM_DU_POD2=salut-kytes-io-86cddf59d5-r25n6
 # ce qui afichera la liste des variables d'environnements pour chaque pod.
 ```
 
-sed -i 's/VAL_NOM_DU_DEPLOIEMENT/$NOM_DU_DEPLOIEMENT/g' $MAISON/deploiement-applis/appli-ex-google/tear-down.sh
-sed -i 's/VAL_NOM_DU_DEPLOIEMENT/$NOM_DU_DEPLOIEMENT/g' $MAISON/deploiement-applis/appli-ex-google/tear-down.sh
-export NOM_DU_DEPLOIEMENT=VAL_NOM_DU_DEPLOIEMENT
-export NOM_DU_SERVICE_K8S=VAL_NOM_DU_SERVICE_K8S
+
 
 ## "Un-deploy" du "hello world" Google
 
