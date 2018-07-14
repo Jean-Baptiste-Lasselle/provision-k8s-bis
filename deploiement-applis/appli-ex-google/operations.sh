@@ -8,7 +8,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
 # export MAISON=`pwd`
-export MAISON=`pwd`/..
+export MAISON=$(pwd)/../..
 export ADRESSE_IP_K8S_API_SERVER_PAR_DEFAUT=0.0.0.0
 export ADRESSE_IP_K8S_API_SERVER=$ADRESSE_IP_K8S_API_SERVER_PAR_DEFAUT
 export NO_PORT_IP_K8S_API_SERVER_PAR_DEFAUT=6443
@@ -74,15 +74,34 @@ echo " ------------ ++ # - -------------------------------------- - # ++ -------
 
 # kubectl apply -f $MAISON/deploiement-applis/treafik-rbac.yml
 
-# etape 1. Créer un déploiement
+# - etape 1. Créer un déploiement
 
 kubectl run $NOM_DU_DEPLOIEMENT --replicas=2 --labels="run=$NOM_DU_LOAD_BALANCER" --image=$REGISTRY_DOCKER_BOSSTEK_HOTE/$NOM_IMAGE:$NO_VERSION_IMAGE --port=$NO_PORT_APPLICATIF
 
-# etape 2. Créer un service, exposer le déploiement par ce service
+# - etape 2. Créer un service, exposer le déploiement par ce service
 
 kubectl expose deployment $NOM_DU_DEPLOIEMENT --type=NodePort --name=$NOM_DU_SERVICE_K8S
 
+# - etape finale: générer le tear-down
 
+# - val. deboggage
+# export MAISON=$(pwd)/../..
+export NOM_DU_DEPLOIEMENT=salut-kytes-io
+export NOM_DU_SERVICE_K8S=salut-kytes-io-k8service-to-load-balance-b8b
+# export NOM_DU_DEPLOIEMENT=VAL_NOM_DU_DEPLOIEMENT
+# export NOM_DU_SERVICE_K8S=VAL_NOM_DU_SERVICE_K8S
+rm $MAISON/deploiement-applis/appli-ex-google/tear-down.sh
+cp $MAISON/deploiement-applis/appli-ex-google/tear-down.template.sh $MAISON/deploiement-applis/appli-ex-google/tear-down.sh
+sed -i 's/VAL_NOM_DU_DEPLOIEMENT/$NOM_DU_DEPLOIEMENT/g' $MAISON/deploiement-applis/appli-ex-google/tear-down.sh
+sed -i 's/VAL_NOM_DU_SERVICE_K8S/$NOM_DU_SERVICE_K8S/g' $MAISON/deploiement-applis/appli-ex-google/tear-down.sh
+chmod +x $MAISON/deploiement-applis/appli-ex-google/tear-down.sh
+# $MAISON/deploiement-applis/appli-ex-google/tear-down.sh
+
+echo " ------------ ++ 										 "
+echo " ------------ ++ ------------------------------------------------------------------------------------ "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										 "
 echo " ------------ ++ ------------------------------------------------------------------------------------ "
 echo " ------------ ++ 										 "
 echo " ------------ ++ 										 "
@@ -126,7 +145,7 @@ echo " ------------ ++ 										 "
 # Premier arg. de la fonction: le nom k8s du node dont on souhaite récupérer l'adresse IP 
 recupererAdresseIP () {
   export NOM_WORKER=$1
-  export RESULTAT=$(kubectl describe services $NOM_DU_DEPLOIEMENT | grep NodePort)
+  export RESULTAT=$(kubectl describe node $NOM_WORKER | grep /public-ip)
   echo "${RESULTAT:55:15}" && return 0;
 }
 
@@ -136,6 +155,7 @@ recupererAdresseIP () {
 recupererNodePortDuDeploiement () {
   export NOM_DEPLOIEMENT=$1
   export RESULTATI=$(kubectl describe services $NOM_DEPLOIEMENT | grep NodePort:| awk '{print $3}')
+  # echo ${RESULTATI::-4} && return 0;
   echo ${RESULTATI::-4} && return 0;
 }
 
@@ -144,14 +164,18 @@ recupererNodePortDuDeploiement () {
 kubectl get nodes | awk '{print $1}' | grep -v NAME >> liste-workers.kytes
 # on itère sur le ifchier, pour afficher l'URL complète d'acès à l'application déployée, via 
 export ADRESSE_IP_WORKER_COURANT
+export NO_PORT_IP_NODEPORTK8S_DU_DEPLOIEMENT=$(recupererNodePortDuDeploiement $WORKER_COURANT)
+
 while read WORKER_COURANT; do
-  
   ADRESSE_IP_WORKER_COURANT=$(recupererAdresseIP $WORKER_COURANT)
   # echo " worker jbl repéré:  [$WORKER_COURANT]   adresse IP : [$ADRESSE_IP_WORKER_COURANT]"
   echo "  "
-  echo "  via le node \"[$WORKER_COURANT]\" :"
-  echo "firefox http://$ADRESSE_IP_WORKER_COURANT:\$NO_PORT_IP_NODEPORTK8S/"
-  "# ou via le second node :"
+  echo "  --  "
+  echo "  "
+  echo "  via le node \"[$WORKER_COURANT]\", avec l'instruction :"
+  echo "      firefox http://$ADRESSE_IP_WORKER_COURANT:$NO_PORT_IP_NODEPORTK8S_DU_DEPLOIEMENT/"
+  echo "  --  "
+  echo "# ou "
 done <liste-workers.kytes
 rm liste-workers.kytes
 
@@ -159,14 +183,6 @@ rm liste-workers.kytes
 
 
 
-
-export ADRESSE_IP_WORKER1=kubectl describe node worker-jbl|grep /public|export RESULTAT=$1 && echo "${RESULTAT:55:15}"
-
-echo "export NO_PORT_IP_NODEPORTK8S=32199"
-echo "# vous pouvez acccéder à l'application déployée via le premier node :"
-echo "firefox http://$ADRESSE_IP_WORKER_1:$NO_PORT_IP_NODEPORTK8S/"
-echo "# ou via le second node :"
-echo "firefox http://$ADRESSE_IP_WORKER_2:$NO_PORT_IP_NODEPORTK8S/"
 echo " ------------ ++ 										 "
 echo " ------------ ++ 										 "
 echo " ------------ ++ 										 "
@@ -177,3 +193,18 @@ echo " ------------ ++ 										 "
 echo " ------------ ++ 										 "
 echo " ------------ ++ 										 "
 echo " ------------ ++ ------------------------------------------------------------------------------------ "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 			Enfin, vous pouvez nettoyer toutes els traes de cette recette en exécutant le script:							 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 				[$MAISON/deploiement-applis/appli-ex-google/tear-down.sh]						 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										kubectl describe node worker-jbl|grep /public|export RESULTAT=$1 && echo \"\${RESULTAT:55:15}\" "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ 										 "
+echo " ------------ ++ ------------------------------------------------------------------------------------ "
+
