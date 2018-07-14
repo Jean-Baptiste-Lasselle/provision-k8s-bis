@@ -136,4 +136,7 @@ Développer une application typique, avec architecture suggérée par traefik
 
 et:
 
-![internal](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/traefik/internnal.png)
+![internals](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/traefik/internnal.png)
+
+
+voilà.
