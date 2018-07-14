@@ -1,13 +1,13 @@
 # Utilisation
 
-ref:
+Ref:
 
 https://docs.traefik.io/configuration/backends/kubernetes/
 https://docs.traefik.io/user-guide/kubernetes/
 
 ## Provison Traefik
 
-### etape 1 Configurer un Role RBAC pour l'utilisateur Traefik
+### Etape 1 Configurer un Role RBAC pour l'utilisateur Traefik
 
 Avec la CLI, depuis votre poste opérateur, exécuter le commande: 
 
@@ -19,7 +19,7 @@ curl -o $FICHIER_CONF_LOCAL $URI_FICHIER_CONF
 ./kubectl apply -f ./traefik-rbac.yaml
 ```
 
-### etape 2: Déploiement de Traefik
+### Etape 2: Déploiement de Traefik
 
 Soit avec la CLI: 
 
@@ -120,3 +120,20 @@ export NOM_DU_POD2=salut-kytes-io-86cddf59d5-r25n6
 https://docs.traefik.io/user-guide/kubernetes/
 
 https://medium.com/@carlosedp/multiple-traefik-ingresses-with-letsencrypt-https-certificates-on-kubernetes-b590550280cf
+
+
+# Portotype d'application à développer
+
+Développer une application typique, avec architecture suggérée par traefik
+
+
+* [api.domain.com][api.kytes.io] permet d'accéder à l'API depuis internet
+* [domain.com/web][kytes.io/web] permet d'accéder au micro service qui sert le client Angular 5 [ CORS, et appli angular qui appelle directement le back officer? d'après le schema d'architecture, il n'y aurait pas d'autre raison pour laquelle le back-office devrait être accessible de l'extérieur]
+* [backoffice.domain.com][backoffice.kytes.io] pointera vers le endpoint de la couche métier, et sera load-balancée, avec un replicaSet que l'on scalera de 2 à 7.
+
+
+![architecture](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/traefik/architecture.png)
+
+et:
+
+![architecture](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/traefik/internnal.png)
