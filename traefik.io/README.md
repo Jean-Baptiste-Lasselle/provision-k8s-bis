@@ -121,6 +121,7 @@ https://docs.traefik.io/user-guide/kubernetes/
 
 https://medium.com/@carlosedp/multiple-traefik-ingresses-with-letsencrypt-https-certificates-on-kubernetes-b590550280cf
 
+https://medium.com/@Oskarr3/setting-up-ingress-on-minikube-6ae825e98f82
 
 # Portotype d'application à développer
 
