@@ -62,19 +62,9 @@ export POD_NETWORK_CIDR=$POD_NETWORK_CIDR_PAR_DEFAUT
 
 # cd $MAISON
 
-# - Provision Traefik.io - ac daemonset - #
+# - Provision Traefik.io - #
 kubectl apply -f $MAISON/traefik.io/traefik-rbac.yaml
-kubectl apply -f $MAISON/traefik.io/traefik-daemonset.yaml
-kubectl apply -f $MAISON/traefik.io/traefik-ui.yaml
-
-# références pour vérifier ce qui ne va as avec traefik
-# 
-# 
-# 		https://docs.traefik.io/user-guide/kubernetes/
-# 		https://medium.com/@carlosedp/multiple-traefik-ingresses-with-letsencrypt-https-certificates-on-kubernetes-b590550280cf
-# 
-# 
-# 
+kubectl apply -f $MAISON/traefik.io/traefik-deployment.yaml
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
 kubectl --namespace=kube-system get pods
@@ -88,16 +78,16 @@ echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
-# echo " ---------	tear down:    "
-# echo " ---------------------------------------------------- "
-# echo " ---------			 kubectl get services           "
-# echo " ---------			 kubectl delete service traefik-ingress-service --namespace=kube-system		 "
-# echo " ---------			 kubectl get pods 		        "
-# echo " ---------			 kubectl delete pods traefik-ingress-controller-6f6d87769d-wx6w9 --namespace=kube-system		 "
-# echo " ---------			 kubectl --namespace=kube-system get replicaSets		 "
-# echo " ---------			 kubectl delete replicaSets traefik-ingress-controller-6f6d87769d --namespace=kube-system		 "
-# echo " ---------			 kubectl --namespace=kube-system get deployments		 "
-# echo " ---------			 kubectl delete deployments traefik-ingress-controller  --namespace=kube-system 		 "
+echo " ---------	tear down:    "
+echo " ---------------------------------------------------- "
+echo " ---------			 kubectl get services           "
+echo " ---------			 kubectl delete service traefik-ingress-service --namespace=kube-system		 "
+echo " ---------			 kubectl get pods 		        "
+echo " ---------			 kubectl delete pods traefik-ingress-controller-6f6d87769d-wx6w9 --namespace=kube-system		 "
+echo " ---------			 kubectl --namespace=kube-system get replicaSets		 "
+echo " ---------			 kubectl delete replicaSets traefik-ingress-controller-6f6d87769d --namespace=kube-system		 "
+echo " ---------			 kubectl --namespace=kube-system get deployments		 "
+echo " ---------			 kubectl delete deployments traefik-ingress-controller  --namespace=kube-system 		 "
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
 echo " ---------------------------------------------------- "
