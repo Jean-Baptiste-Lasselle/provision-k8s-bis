@@ -198,3 +198,27 @@ traefik-web-ui            10.244.1.7:8080                                       
 <a href="/dashboard/">Found</a>.
 
 ```
+
+
+```
+[jbl@traefik-ui provision-test-k8s]$ kubectl get endpoints
+NAME                                           ENDPOINTS                         AGE
+cheddar                                        10.244.1.11:80,10.244.1.14:80     1h
+kubernetes                                     192.168.1.21:6443                 2h
+salut-kytes-io-k8service-to-load-balance-b8b   10.244.1.8:8080,10.244.1.9:8080   1h
+stilton                                        10.244.1.10:80,10.244.1.13:80     1h
+wensleydale                                    10.244.1.12:80,10.244.1.15:80     1h
+[jbl@traefik-ui provision-test-k8s]$ ip addr|grep  10.
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:63:a0:10 brd ff:ff:ff:ff:ff:ff
+4: enp0s9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+5: enp0s10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    inet 10.244.0.0/32 scope global flannel.1
+8: cni0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default qlen 1000
+    inet 10.244.0.1/24 scope global cni0
+10: vethc55a308c@if3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue master cni0 state UP group default
+[jbl@traefik-ui provision-test-k8s]$
+
+```
