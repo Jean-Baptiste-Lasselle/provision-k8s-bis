@@ -246,6 +246,6 @@ Ci-dessous:
        valid_lft forever preferred_lft forever
 
 ```
-Et la conf. réseau de la VM virutalbox :
+Et la conf. réseau de la VM virutalbox (Donc l'adresseMAC ci-dessus est [08:00:27:9e:4e:74] ) :
  
 ![internals](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/traefik/cartes-reseau-pod-network-cidr.png)
