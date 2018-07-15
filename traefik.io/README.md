@@ -222,3 +222,30 @@ wensleydale                                    10.244.1.12:80,10.244.1.15:80    
 [jbl@traefik-ui provision-test-k8s]$
 
 ```
+Et en consultant la configuration réseau, je constate : 
+* Que le POD_NETWORK_CIDR a été utilisé pour configurer une adresse IP pour la carte réseau no. 4 de la VM Virutal Box, 
+* Que cette carte est sur un "Internal Network" virtual box
+
+Ci-dessous:
+
+* extrait du résultat de `ip addr`, montrant l'adresse IP, le sous réseau, et la MAC adresse de la carte réseau, pour l'interface `enp0s10` 
+* impression écran de la conf. virutal box mentionnant l'adresse MAC de la carte
+
+```
+5: enp0s10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:9e:4e:74 brd ff:ff:ff:ff:ff:ff
+6: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default
+    link/ether 02:42:2b:32:42:f7 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+7: flannel.1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UNKNOWN group default
+    link/ether 42:33:da:59:3f:4b brd ff:ff:ff:ff:ff:ff
+    inet 10.244.0.0/32 scope global flannel.1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::4033:daff:fe59:3f4b/64 scope link
+       valid_lft forever preferred_lft forever
+
+```
+Et la conf. réseau de la VM virutalbox :
+ 
+![internals](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/traefik/cartes-reseau-pod-network-cidr.png)
