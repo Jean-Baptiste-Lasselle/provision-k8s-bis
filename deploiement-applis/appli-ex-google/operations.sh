@@ -159,7 +159,7 @@ recupererNodePortDuDeploiement () {
   echo ${RESULTATI::-4} && return 0;
 }
 
-
+touch 
 # on la liste de tous les noms de nodes du cluster, dans un fichier texte
 kubectl get nodes | awk '{print $1}' | grep -v NAME >> liste-workers.kytes
 # on itère sur le ifchier, pour afficher l'URL complète d'acès à l'application déployée, via 

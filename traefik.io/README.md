@@ -139,3 +139,62 @@ et:
 
 ![internals](https://github.com/Jean-Baptiste-Lasselle/provision-k8s-bis/raw/master/images/traefik/internal.png)
 
+# Dernières informatiosn obtenues
+
+
+Après avori exécuté:
+
+```
+./deploiement-applis/trois/operations.sh
+```
+
+D'abord depuis l'hôte CentOS, je peux faire des ping d'adresses réseaux dans le réseau défininit par POD_NETWORK_CIDR, un paramètre de provision du cluster Kubernetes.
+
+Ensuite, je peux utiliser la commande : 
+```
+kubectl get endpoints
+```
+
+et essayer de faire un curl de tus les endpoints répertoriés. Normalement , j'arrive à voir des URLs auxuquelles j'ai accès aux applis : 
+
+```
+[jbl@traefik-ui provision-test-k8s]$ curl 10.244.1.13
+<html>
+  <head>
+    <style>
+      html {
+        background: url(./bg.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+
+      h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        background: rgba(187, 187, 187, 0.5);
+        width: 3em;
+        padding: 0.5em 1em;
+        margin: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Stilton</h1>
+  </body>
+</html>
+
+```
+
+```
+[jbl@traefik-ui provision-test-k8s]$ kubectl get endpoints --namespace=kube-system
+NAME                      ENDPOINTS                                               AGE
+kube-controller-manager   <none>                                                  2h
+kube-dns                  10.244.0.4:53,10.244.0.5:53,10.244.0.4:53 + 1 more...   2h
+kube-scheduler            <none>                                                  2h
+traefik-ingress-service   10.244.1.7:80,10.244.1.7:8080                           1h
+traefik-web-ui            10.244.1.7:8080                                         1h
+[jbl@traefik-ui provision-test-k8s]$ curl 10.244.1.7:8080
+<a href="/dashboard/">Found</a>.
+
+```

@@ -186,6 +186,8 @@ sed -i "s/VAL_VERSION_K8S/$VERSION_K8S/g" ./installation-k3s-k8s.sh
 sudo chmod +x ./*.sh
 sudo chmod +x ./masters/*.sh
 sudo chmod +x ./workers/*.sh
+sudo chmod +x ./traefik.io/*.sh
+sudo chmod +x ./deploiement-applis/*.sh
 # - désactivation SELinux
 sudo ./desactivation-se-linux.sh
 # - reste des opérations communes aux "masters" et "workers"
